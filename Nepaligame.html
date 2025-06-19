@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ne">
+<head>
+  <meta charset="UTF-8">
+  <title>के हो म? 🤔</title>
+  <style>
+    body {
+      font-family: 'Mukti', sans-serif;
+      background-color: #fff9f0;
+      text-align: center;
+      padding: 40px;
+    }
+
+    .game-box {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 0 12px rgba(0,0,0,0.2);
+      padding: 30px;
+      max-width: 600px;
+      margin: auto;
+    }
+
+    .riddle {
+      font-size: 24px;
+      margin: 20px;
+      color: #333;
+    }
+
+    input[type="text"] {
+      padding: 10px;
+      font-size: 16px;
+      width: 70%;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      background-color: #00a86b;
+      color: white;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .result, .score {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="game-box">
+    <h1>🧠 के हो म? (Guess in Nepali)</h1>
+    <div class="riddle" id="riddle">म बिनाको जीवन अधुरो हुन्छ, तर म किताब होइन। म के हो?</div>
+    <input type="text" id="answerInput" placeholder="तिमीको उत्तर लेख..." />
+    <br>
+    <button onclick="checkAnswer()">पक्का गर</button>
+    <div class="result" id="result"></div>
+    <div class="score" id="score">स्कोर: 0</div>
+  </div>
+
+  <script>
+    const riddles = [
+      {
+        clue: "म बिनाको जीवन अधुरो हुन्छ, तर म किताब होइन। म के हो?",
+        answer: "शिक्षा"
+      },
+      {
+        clue: "म देखिन्न, तर महशुस गर्न सकिन्छ। म बिना प्रेम अधुरो हुन्छ। म के हो?",
+        answer: "भावना"
+      },
+      {
+        clue: "छैन हात, छैन खुट्टा, हिँड्छ दौडन्छ पनि। म के हो?",
+        answer: "घडी"
+      },
+      {
+        clue: "म जुनसुकै आकार लिन सक्छु, म बिना पानी अधुरो हुन्छ। म के हो?",
+        answer: "पानी"
+      }
+    ];
+
+    let current = 0;
+    let score = 0;
+
+    function loadRiddle() {
+      document.getElementById("riddle").textContent = riddles[current].clue;
+      document.getElementById("result").textContent = "";
+      document.getElementById("answerInput").value = "";
+    }
+
+    function checkAnswer() {
+      const input = document.getElementById("answerInput").value.trim();
+      if (input === riddles[current].answer) {
+        score += 1;
+        document.getElementById("result").textContent = "✅ सही उत्तर!";
+        document.getElementById("score").textContent = "स्कोर: " + score;
+        current++;
+        if (current < riddles.length) {
+          setTimeout(loadRiddle, 1000);
+        } else {
+          document.getElementById("riddle").textContent = "खेल सकियो 🎉";
+          document.getElementById("result").textContent = "तपाईंको अन्तिम स्कोर: " + score;
+        }
+      } else {
+        document.getElementById("result").textContent = "❌ गलत उत्तर! फेरि कोसिस गर्नुहोस्।";
+      }
+    }
+
+    loadRiddle();
+  </script>
+
+</body>
+</html>
